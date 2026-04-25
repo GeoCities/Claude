@@ -1,0 +1,17 @@
+{
+  "name": "geocities",
+  "private": true,
+  "version": "0.1.0",
+  "description": "GeoCities v1 — web3-native identity stack: subdomain = wallet + browser + mail + site",
+  "workspaces": [
+    "web",
+    "gateway",
+    "pinning"
+  ],
+  "scripts": {
+    "dev:gateway": "npm --workspace gateway run dev",
+    "dev:pinning": "npm --workspace pinning run dev",
+    "dev:web": "npm --workspace web run dev",
+    "build:web": "npm --workspace web run build"
+  }
+}
