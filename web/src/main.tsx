@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
+// HashRouter (not HashRouter): IPFS gateways serve files, not SPAs, so a refresh
+// on /editor would 404 with HashRouter. HashRouter encodes the route in the fragment
+// (#/editor) which the gateway never sees, so it works on any static host.
+import { HashRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
 
 import { IdentityProvider } from './hooks/useIdentity';
 import { Onboarding } from './pages/Onboarding';
@@ -78,9 +81,9 @@ function App() {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <IdentityProvider>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </IdentityProvider>
   </React.StrictMode>,
 );

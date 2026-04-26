@@ -142,6 +142,35 @@ npm run dev
 The dev server runs at `localhost:5173`. Onboarding works against the gateway;
 the Browser tab works against mainnet ENS without any local services.
 
+## Deploying the web app to IPFS / a static host
+
+This repo is a monorepo, so a "build the root and serve as static" deploy will
+fail (and on most build services, fall back to a directory-listing placeholder).
+
+The web app lives under `web/`. To deploy:
+
+- **Build command**: `npm install && npm run build:web`
+- **Publish directory**: `web/dist`
+
+Pre-built configs at the repo root for common platforms:
+
+- `fleek.json` — Fleek (IPFS)
+- `vercel.json` — Vercel / Netlify-shaped configs
+
+If your platform doesn't read those, set the build command and publish dir in
+the dashboard manually.
+
+Notes for IPFS hosting specifically:
+
+- The SPA uses `HashRouter` (`#/browser`, `#/editor`, ...) so deep links work
+  on plain IPFS gateways without SPA-fallback rewrites.
+- Vite is configured with `base: './'` so assets resolve under any
+  `/ipfs/<cid>/` path.
+- The Onboarding and Editor "Publish" flows still need the `gateway/` and
+  `pinning/` services running somewhere reachable — set `VITE_GATEWAY_URL`
+  and `VITE_PIN_URL` at build time. The Browser tab works standalone (mainnet
+  ENS reads only).
+
 ## Path to mainnet
 
 Seven things must happen before this stack is mainnet-ready:

@@ -12,6 +12,7 @@
     "dev:gateway": "npm --workspace gateway run dev",
     "dev:pinning": "npm --workspace pinning run dev",
     "dev:web": "npm --workspace web run dev",
-    "build:web": "npm --workspace web run build"
+    "build:web": "npm --workspace web run build",
+    "build": "npm --workspace web run build"
   }
 }
