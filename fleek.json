@@ -1,0 +1,8 @@
+{
+  "$schema": "https://schema.fleek.xyz/",
+  "build": {
+    "baseDirectory": ".",
+    "buildCommand": "npm install && npm run build:web",
+    "publicDirectory": "web/dist"
+  }
+}
