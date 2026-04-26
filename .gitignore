@@ -9,3 +9,7 @@ cache/
 .DS_Store
 records.json
 broadcast/
+web/tsconfig.tsbuildinfo
+web/tsconfig.node.tsbuildinfo
+web/vite.config.d.ts
+web/vite.config.js

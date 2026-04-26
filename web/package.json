@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ensdomains/content-hash": "^3.1.0",
+    "@ensdomains/content-hash": "^3.0.0",
     "@simplewebauthn/browser": "^10.0.0",
     "@xmtp/browser-sdk": "^1.0.4",
     "react": "^18.3.1",

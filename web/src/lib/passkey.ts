@@ -119,25 +119,24 @@ export async function createPasskey(username: string): Promise<PasskeyResult> {
   const challenge = randomChallenge(32);
   const userId = bufToBase64Url(new TextEncoder().encode(username));
 
+  // SimpleWebAuthn v10 takes options directly; v11+ wraps them in `{ optionsJSON }`.
   const reg = await startRegistration({
-    optionsJSON: {
-      challenge,
-      rp: {
-        id: window.location.hostname,
-        name: 'GeoCities',
-      },
-      user: {
-        id: userId,
-        name: `${username}.geocities.eth`,
-        displayName: `${username}.geocities.eth`,
-      },
-      pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
-      timeout: 60_000,
-      attestation: 'none',
-      authenticatorSelection: {
-        residentKey: 'required',
-        userVerification: 'required',
-      },
+    challenge,
+    rp: {
+      id: window.location.hostname,
+      name: 'GeoCities',
+    },
+    user: {
+      id: userId,
+      name: `${username}.geocities.eth`,
+      displayName: `${username}.geocities.eth`,
+    },
+    pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
+    timeout: 60_000,
+    attestation: 'none',
+    authenticatorSelection: {
+      residentKey: 'required',
+      userVerification: 'required',
     },
   });
 
@@ -153,13 +152,11 @@ export async function createPasskey(username: string): Promise<PasskeyResult> {
 
 export async function signWithPasskey(credentialId: string, challenge: Uint8Array) {
   const auth = await startAuthentication({
-    optionsJSON: {
-      challenge: bufToBase64Url(challenge),
-      rpId: window.location.hostname,
-      allowCredentials: [{ id: credentialId, type: 'public-key' }],
-      userVerification: 'required',
-      timeout: 60_000,
-    },
+    challenge: bufToBase64Url(challenge),
+    rpId: window.location.hostname,
+    allowCredentials: [{ id: credentialId, type: 'public-key' }],
+    userVerification: 'required',
+    timeout: 60_000,
   });
   return {
     signature: auth.response.signature,
